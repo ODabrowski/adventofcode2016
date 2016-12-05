@@ -8,7 +8,7 @@ def rotate_vect(v,angle):
     rot_matrix=[[math.cos(angle), -1*math.sin(angle)],[math.sin(angle),math.cos(angle)]]
     for i in range(len(rot_matrix)):
         for j in range(len(rot_matrix[0])):
-            v_res[i]+=int(rot_matrix[i][j]*v[j])
+            v_res[i]+=round(rot_matrix[i][j]*v[j])
     return v_res
         
 def scalar_product(v1,v2):

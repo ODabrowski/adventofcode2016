@@ -25,9 +25,9 @@ def norm_vect(v):
 
 #2D orthogonal scalar projection of vector a on vector b
 #(=scalar value of the length of the projected vector)
-def proj_a_b(a,b):
-    proj=scalar_product(a,b)/norm_vect(b)
-    return proj
+def proj(a,b):
+    proj_a_b=scalar_product(a,b)/norm_vect(b)
+    return proj_a_b
 
 def add_vect(v1,v2):
     v_res=[0,0]
@@ -35,32 +35,6 @@ def add_vect(v1,v2):
         print('error : vectors have same length!')
     for i in range(len(v1)):
         v_res[i]+=v1[i]+v2[i]
-    return v_res
-        
-
-#Compute displacement vector.
-#if same direction between 2 calls of the function e.g. R->R or L->L in the puzzle,
-#then do a 90 degrees rot else if different e.g. R->L or L->R do a -90 degrees rot
-def disp_vect(v,curr_dir,prev_dir):
-    print('curr_dir=',curr_dir)
-    print('prev_dir=',prev_dir)
-    print('v=',v)
-    v_res=[]
-    if prev_dir=='I':
-        #convention for initial
-        if curr_dir=='R':
-            v_res=[1,0]
-        elif curr_dif=='L':
-            v_res=[-1,0]
-    else:
-        if prev_dir != curr_dir:
-            #-90 degree rotation
-            v_res=rotate_vect(v,-math.pi/2)
-        else:
-            #90 degree rotation
-            v_res=rotate_vect(v,math.pi/2)
-    print('v_res=',v_res)
-    print('-----------------')
     return v_res
 
 p_dir='I'#initial, special case
@@ -80,20 +54,9 @@ lst=lst.split(',')
 for i in lst:
     lst2.append(i.strip())#remove spaces
 
-#print('proj=',proj_a_b([5,9],[10,3]))
-#print(norm_vect([1,1]))
 for i in lst2:
     d=i[1:]
-    #c_dir=i[0]
-    #total displacement vector for computing L1 norm
-    #d_vect=disp_vect(d_vect,c_dir,p_dir)
-    #d_vect_tot=add_vect(d_vect_tot,d_vect)
-    #print('d_v=',d_vect)
-    #dir for turtle
     direction=i[0]#d_vect[1]
-    #p_dir=c_dir#old = new
-    #print('d',d,'c_dist=',c_dist,'p_dist=',p_dist)
-    #print('d_vect=',d_vect[0])
     #turtle path display
     speed(30)
     if direction=='R':
@@ -103,12 +66,13 @@ for i in lst2:
         left(90)
         forward(int(d))
 
-#goto(0,0)
-#color("red")
-vect_final=pos()
-print(vect_final)
-#goto(d_vect_tot[0],d_vect_tot[1])
-#print(d_vect)
-#print(rotate_vect([1,1],-math.pi/2))
-#print('test=',add_vect([1,2],[-5,1]))
+
+disp_vect=[pos()[0], pos()[1]]
+print(disp_vect)
+#Manhattan distance is the sum of the projections on X and Y axis of the
+#displacement vector
+L1_norm=proj(disp_vect,[disp_vect[0],0])+proj(disp_vect,[0,disp_vect[1]])
+print('Path length with Manhattan distance:',L1_norm)
+
+
 done()

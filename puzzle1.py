@@ -42,6 +42,9 @@ def add_vect(v1,v2):
 #if same direction between 2 calls of the function e.g. R->R or L->L in the puzzle,
 #then do a 90 degrees rot else if different e.g. R->L or L->R do a -90 degrees rot
 def disp_vect(v,curr_dir,prev_dir):
+    print('curr_dir=',curr_dir)
+    print('prev_dir=',prev_dir)
+    print('v=',v)
     v_res=[]
     if prev_dir=='I':
         #convention for initial
@@ -54,14 +57,17 @@ def disp_vect(v,curr_dir,prev_dir):
             #-90 degree rotation
             v_res=rotate_vect(v,-math.pi/2)
         else:
-            #-90 degree rotation
+            #90 degree rotation
             v_res=rotate_vect(v,math.pi/2)
+    print('v_res=',v_res)
+    print('-----------------')
     return v_res
 
 p_dir='I'#initial, special case
 c_dir=''
-d_vect=[0, 0]
-v=[0,1]#initial vector
+d_vect=[0, 1]#initial vector
+#total displacement vector
+d_vect_tot=[0,0]
 lst=''
 lst2=[]
 direction=''
@@ -78,17 +84,18 @@ for i in lst:
 #print(norm_vect([1,1]))
 for i in lst2:
     d=i[1:]
-    c_dir=i[0]
+    #c_dir=i[0]
     #total displacement vector for computing L1 norm
-    d_vect=add_vect(d_vect,disp_vect(v,c_dir,p_dir))
-    print('d_v=',d_vect)
+    #d_vect=disp_vect(d_vect,c_dir,p_dir)
+    #d_vect_tot=add_vect(d_vect_tot,d_vect)
+    #print('d_v=',d_vect)
     #dir for turtle
     direction=i[0]#d_vect[1]
-    p_dir=c_dir#old = new
+    #p_dir=c_dir#old = new
     #print('d',d,'c_dist=',c_dist,'p_dist=',p_dist)
     #print('d_vect=',d_vect[0])
     #turtle path display
-    speed(20)
+    speed(30)
     if direction=='R':
         right(90)
         forward(int(d))
@@ -96,9 +103,11 @@ for i in lst2:
         left(90)
         forward(int(d))
 
-goto(0,0)
-color("red")
-goto(d_vect[0],d_vect[1])
+#goto(0,0)
+#color("red")
+vect_final=pos()
+print(vect_final)
+#goto(d_vect_tot[0],d_vect_tot[1])
 #print(d_vect)
 #print(rotate_vect([1,1],-math.pi/2))
 #print('test=',add_vect([1,2],[-5,1]))

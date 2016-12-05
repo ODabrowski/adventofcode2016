@@ -72,7 +72,11 @@ print(disp_vect)
 #Manhattan distance is the sum of the projections on X and Y axis of the
 #displacement vector
 L1_norm=proj(disp_vect,[disp_vect[0],0])+proj(disp_vect,[0,disp_vect[1]])
+#or just sum up the abs value of the components of the vector 
+L1_norm_v2=abs(disp_vect[0])+abs(disp_vect[1])
 print('Path length with Manhattan distance:',L1_norm)
+
+print('Path length with Manhattan distance:',L1_norm_v2)
 
 
 done()

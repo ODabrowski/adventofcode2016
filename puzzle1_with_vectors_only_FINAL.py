@@ -1,6 +1,6 @@
 import math
-#Oscar Dabrowski
-#Advent puzzle 1
+#Oscar Dabrowski#
+#Advent puzzle 1#
 
 def rotate_vect(v,angle):
     v_res=[0,0]

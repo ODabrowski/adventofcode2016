@@ -63,6 +63,9 @@ lst2=[]
 direction=''
 temp_v=[0,0]
 cnt=0
+intersectionPoint=['null']
+found=False
+vectList=[]#keep tract of all past coordinates
 with open('puzzle1.txt','r') as f:
     for ln in f:
         lst=lst+ln
@@ -82,15 +85,32 @@ for i in lst2:
         i_vect=disp_vect(i_vect,i[0])
     #print('i_vect=',i_vect)
     temp_v=i_vect
-    temp_v[0]=temp_v[0]*float(i[1:])
-    temp_v[1]=temp_v[1]*float(i[1:])
-    #print('temp v=', temp_v)
-    d_vect_tot=add_vect(d_vect_tot,temp_v)
+    if int(i[1:]) > 1:
+        for j in range(int(i[1:])):
+            d_vect_tot=add_vect(d_vect_tot,temp_v)
+            #first location found
+            if (d_vect_tot in vectList) and not(found):
+                intersectionPoint=d_vect_tot
+                found=True
+            vectList.append( d_vect_tot)   
+    else:
+        #temp_v[0]=temp_v[0]*float(i[1:])
+        #temp_v[1]=temp_v[1]*float(i[1:])
+        #print('temp v=', temp_v)
+        d_vect_tot=add_vect(d_vect_tot,temp_v)
+        #first location found
+        if (d_vect_tot in vectList) and not(found):
+            intersectionPoint=d_vect_tot
+            found=True
+        vectList.append( d_vect_tot)
     
-    
+#print('vlist=',vectList)
 
 print(d_vect_tot)
 #Manhattan distance = sum of the projections (projx + proj y) or vallue of the sum of the abs val of the x y components
 total_distance=abs(d_vect_tot[0])+abs(d_vect_tot[1])
-print('Manhattan distance =' , total_distance)
-#print('test rot:',rotate_vect([0, 1],math.pi/2))
+print('Manhattan distance (total) =' , total_distance)
+
+print('First location visited twice:',intersectionPoint)
+print('Distance to first location visited twice:',abs(intersectionPoint[0])+abs(intersectionPoint[1]))
+

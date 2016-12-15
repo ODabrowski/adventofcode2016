@@ -59,12 +59,14 @@ for i in lst2:
     direction=i[0]#d_vect[1]
     #turtle path display
     speed(30)
+
     if direction=='R':
         right(90)
         forward(int(d))
     elif direction=='L':
         left(90)
         forward(int(d))
+
 
 
 disp_vect=[pos()[0], pos()[1]]
